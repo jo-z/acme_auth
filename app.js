@@ -11,7 +11,7 @@ app.get("/", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
 
 app.get("/api/users/:id/notes", async (req, res, next) => {
 	try {
-		const user = await User.findByPk(req.params.id);
+		const user = await User.byToken(req.headers.authorization);
 		const notes = await user.getNotes();
 		res.json(notes);
 	} catch (err) {
